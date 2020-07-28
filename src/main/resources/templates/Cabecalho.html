@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!-- Cabecalho curso BOOTSTRAP -->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    <!-- Definimos um botao para apresentacao dos itens da 
+	navbar caso ela [colapse], entao chamaremos componente com 
+	id="menu" e exibimos as informacoes aqui dentro do botao -->
+      <button type="button" class="navbar-toggle collapsed"
+      	data-toggle="collapse" data-target="#menu" aria-expanded="false">
+        <span class="sr-only"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand logotipo" th:href="@{#}">
+		<img alt="IntegRation$" th:src="@{/images/logo_integrations.png}">
+      </a>
+      
+    </div>
+
+	<!-- Abaixo criaremos um navbar que ao minimizar muito a tela
+	ele colapsa para ficar responsivo, atribuimos id="menu" -->
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Menu <span class="sr-only"></span></a></li>
+        <li><a th:href="@{#}">Lançamentos</a></li>
+        <li><a th:href="@{#}">Clientes</a></li>
+        <li><a th:href="@{#}">Utilitários</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+    
+  </div><!-- /.container-fluid -->
+</nav>
+
+</html>

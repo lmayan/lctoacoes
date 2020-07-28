@@ -1,0 +1,59 @@
+.logotipo {
+	margin-right: 20px;
+}
+
+/* Seleciona o componente <img> e aplica o css*/
+.logotipo img {
+	margin-top: -30px;
+	height: 80px;
+}
+
+.panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 35px;
+    color: inherit;
+}
+
+.perfil {
+	padding: 10px;
+	width: 350px;
+}
+
+.perfil li:first-child {
+	font-size: 1.3em;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.cabecalho h1 {
+	margin: 0px;
+	font-size: 3em;
+}
+
+/*CSS usado para centralizar o campo de busca com o 'cabecalho'*/
+.divbusca {
+	margin-top: 12px;
+}
+
+/*CSS usado para ajuste da tabela dar mais espaco no topo do h1*/
+.tb-os {
+	margin-top: 30px;
+}
+
+.paginacao .pagination {
+	margin: 0;
+}
+
+/* Cria MediaQuery para dispositivos com ate 767px, aplica o style 
+CSS definido nos componentes*/
+@media (max-width: 767px){
+	.paginacao{
+		text-align: center;
+	}
+	
+	.paginacao .pagination {
+		margin-top: 20px;
+	}
+
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+	
+<head>
+	<title>Pesquisa de Lançamentos</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+<div layout:insert="MensagemGeral"></div>
+
+<div class="container">
+	<!-- Inserindo Breadcrumb desta pagina -->
+	<ol class="breadcrumb">
+		<li><a href="">Inicio</a></li>
+		<li><a href="">Lançamentos</a></li>
+		<li class="active">Pesquisa</li>
+	</ol>
+	
+	<!-- <div layout:insert="MensagemGeral"></div> -->
+   	
+   	<div class="panel panel-default">
+   		<div class="panel-heading">
+   			<div class="clearfix">
+	   			<h3 class="panel-title div-titulo-panel" style="font-weight: 600">Pesquisa de Lançamento</h3>
+   			</div>
+   		</div>
+   		
+   		<div class="panel-body">
+   		
+   			<form th:action="@{/lancamentos}" class="form-horizontal" method="get">
+   				<div class="form-group">
+   					<div class="col-sm-4">
+   						<div class="input-group">
+   							<input class="form-control" placeholder="Qual descrição está procurando?" 
+   								autofocus="autofocus" ></input>
+   							<span class="input-group-btn">
+   								<button type="submit" class="btn btn-default">
+   									<i class="glyphicon glyphicon-search"></i>
+   								</button>
+   							</span> 
+   						</div>
+   					</div>
+   				</div>
+   			</form>
+   		
+	   		<div class="table-responsive">
+	    		<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="text-center col-md-1">ID</th>
+							<th>Nome Ação</th>
+							<th class="text-center col-md-2">Data de Vencimento</th>
+							<th class="text-right col-md-2">Valor</th>
+							<th class="text-center col-md-2">Status</th>
+							<th class="text-center col-md-1">Opções</th>
+						</tr>    			
+	    			</thead>
+	    			<tbody>
+	    				<tr th:each="lancamento : ${listaLancamentos}">
+	    					<td class="text-center" th:text="${lancamento.id}"></td>
+	    					<td th:text="${lancamento.nomeAcao}"></td>
+	    					<td class="text-center" th:text="${{lancamento.dataCompraVenda}}"></td>
+	    					<td class="text-right" th:text="|R$ ${{lancamento.vlrUnit}}|"></td>
+	    					<td class="text-center">
+	    						<a class="btn btn-link btn-xs" rel="tooltip" data-placement="top" title="Editar"
+	    							th:href="@{/lancamentos/{id}(id=${lancamento.id})}">
+	    							<span class="glyphicon glyphicon-pencil"></span>
+	    						</a>
+	    						<a class="btn btn-link btn-xs" data-toggle="modal" rel="tooltip" data-placement="top" title="Remover"
+	    							data-target="#confirmacaoExclusaoModal"
+	    							th:attr="data-codigo=${lancamento.id}, data-descricao=${lancamento.nomeAcao}">
+	    							<span class="glyphicon glyphicon-remove"></span>
+	    						</a>
+	    					</td>
+	    				</tr>
+	    				<tr>
+	    					<td colspan="6" th:if="${#lists.isEmpty(listaLancamentos)}">Nenhum lançamento encontrado!</td>
+	    				</tr>
+	    			</tbody>
+				</table>
+			</div>
+			
+			<!-- Inserindo Paginacao no RODAPE -->
+			<footer>
+				<div class="col-sm-3">
+					<button class="btn btn-primary" data-toggle="modal" 
+						data-target="#NovoLancamento">Novo Lançamento (Modal)</button>
+				</div>
+				<div class="col-sm-3">
+					<a class="btn btn-link" th:href="@{/lancamentos/novo}">Novo Lançamento (Pagina)</a>
+				</div>
+				<div class="col-sm-6 paginacao text-right">
+					<ul class="pagination">
+						<li class="disabled"><a href=""><span><<</span></a></li>
+						<li class="active"><a href="">1</a></li>
+						<li><a href="">2</a></li>
+						<li><a href="">3</a></li>
+						<li><a href="">4</a></li>
+						<li><a href="">5</a></li>
+						<li><a href=""><span>>></span></a></li>
+					</ul>
+				</div>
+			</footer>
+   		</div>
+   		<div layout:insert="DialogoConfirmacaoExclusao"></div>
+   		<div layout:insert="DialogoNovoLancamento"></div>
+   	</div>
+	</div>
+</section>
+</html>

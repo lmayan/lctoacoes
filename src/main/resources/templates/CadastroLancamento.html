@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+	
+<head>
+	<title>Cadastro de Lancamento</title>
+</head>
+
+<section layout:fragment="conteudo">
+ 	<form class="form-horizontal" method="POST" th:action="@{/lancamentos}" th:object="${lancamento}">
+	
+	<div class="container">
+
+		<!-- Inserindo Breadcrumb desta pagina -->
+		<ol class="breadcrumb">
+			<li><a href="">Inicio</a></li>
+			<li><a th:href="@{/lancamentos}">Lançamentos</a></li>
+			<li class="active">Cadastro</li>
+		</ol>
+
+		<div layout:insert="MensagemGeral"></div>
+		<div layout:insert="MensagemErro"></div>
+	
+	   	<div class="panel panel-default">
+	   		<div class="panel-heading">
+	   			<div class="clearfix">
+		   			<h5 class="panel-title div-titulo-panel" style="font-weight: 600">Novo Lançamento</h5>
+	   				<a class="btn btn-link div-link-panel" th:href="@{/lancamentos}">Voltar a pesquisa</a>
+   				</div>
+	   		</div>
+	   		
+	   		<div class="panel-body">
+	   			
+	   			<input type="hidden" id="id" th:field="*{id}"/>
+	   			
+				<div class="form-group" th:classappend="${#fields.hasErrors('nomeAcao')} ? has-error">
+					<label for="nomeAcao" class="col-sm-2 control-label">Nome Ação/FII</label>
+					<div class="col-sm-2"> 
+						<input type="text" maxlength="6" class="form-control" id="nomeAcao" th:field="*{nomeAcao}"/>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('dataCompraVenda')} ? has-error">
+					<label for="dataCompraVenda" class="col-sm-2 control-label">Data Compra/Venda</label>
+					<div class="col-sm-2">  
+						<input autocomplete="off" type="text" class="form-control"	id="dataCompraVenda" data-provide="datepicker" 
+						data-date-autoclose="true" data-date-orientation="bottom" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+						data-date-today-highlight="true" data-date-today-Btn="true" th:field="*{dataCompraVenda}"/>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('tipo_acfi')} ? has-error">
+					<label for="tipo_acfi" class="col-sm-2 control-label">Tipo Ação/FII</label>
+					<div class="col-sm-2">
+						<select class="form-control" name="tipo_acfi">
+							<option th:each="tipo_acfi : ${tipos_acfi}" th:value="${tipo_acfi}"
+							th:text="${tipo_acfi.descricao}" th:field="*{tipo_acfi}"></option>
+	                   	</select>
+	                   </div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('tipo_vc')} ? has-error">
+					<label for="tipo_vc" class="col-sm-2 control-label">Tipo V/C</label>
+					<div class="col-sm-2">
+						<select class="form-control" name="tipo_vc">
+							<option disabled="disabled" selected>Selecione...</option>
+							<option value="Venda" th:field="*{tipo_vc}">Venda</option>
+							<option value="Compra" th:field="*{tipo_vc}">Compra</option>
+	                   	</select>
+	                   </div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('vlrUnit')} ? has-error">
+					<label for="vlrUnit" class="col-sm-2 control-label">Valor Unitário</label>
+					<div class="col-sm-2">   
+						<div class="input-group">
+							<div class="input-group-addon">R$</div>
+							<input type="text" class="form-control js-currency" id="vlrUnit" th:field="*{vlrUnit}"/>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('qtdade')} ? has-error">
+					<label for="qtdade" class="col-sm-2 control-label">Quantidade</label>
+					<div class="col-sm-2">   
+						<input type="number" min="1" class="form-control" id="qtdade" th:field="*{qtdade}"/>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('vlrDesp')} ? has-error">
+					<label for="vlrDesp" class="col-sm-2 control-label">Valor Despesa</label>
+					<div class="col-sm-2">   
+						<div class="input-group">
+							<div class="input-group-addon">R$</div>
+							<input type="text" class="form-control js-currency" id="vlrDesp" th:field="*{vlrDesp}"/>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('totLcto')} ? has-error">
+					<label for="totLcto" class="col-sm-2 control-label">Valor Total</label>
+					<div class="col-sm-2">   
+						<div class="input-group">
+							<div class="input-group-addon">R$</div>
+							<input disabled="disabled" type="text" class="form-control js-currency" id="totLcto" th:field="*{totLcto}"/>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+			</div>
+	   	</div>
+	  </div>
+   </form>
+</section>
+</html>

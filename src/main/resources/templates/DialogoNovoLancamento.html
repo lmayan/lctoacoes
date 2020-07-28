@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!-- Inserindo MODAL do botao de "Nova Ordem de Serviço" -->
+	<div class="modal fade" id="NovoLancamento">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" data-dismiss="modal" class="close">
+						<span>&times;</span>
+					</button>
+					<h4>Novo Lançamento</h4>
+				</div>
+				<form>
+					<!-- Inserindo entrada de dados da OS -->
+					<div class="modal-body">
+						<div class="row">
+							<div class="text-center col-sm-6 alert alert-success">
+								<button type="button" class="close" data-dismiss="alert">
+									<span>&times;</span></button>
+								SUCESSO
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-sm-5">
+								<label class="control-label" for="cliente">Usuário</label>
+								<select id="cliente" class="form-control">
+									<option value="" >Selecione...</option>
+									<option value="Carol">Carol</option>
+									<option value="Lucas">Lucas</option>
+									<option value="Mateus">Mateus</option>
+								</select>
+							</div>
+							<div class="form-group col-sm-7">
+								<label for="dataVencimento" class="col-sm-2 control-label">Data de vencimento</label>
+								<div class="col-sm-2">  
+									<input autocomplete="off" type="text" class="form-control"	id="dataVencimento" data-provide="datepicker" 
+									data-date-autoclose="true" data-date-orientation="bottom" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+									data-date-today-highlight="true" data-date-today-Btn="true"/>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-sm-6">
+								<label for="dataVencimento" class="control-label">Data de vencimento</label>
+									<input autocomplete="off" type="text" class="form-control"	id="dataVencimento" data-provide="datepicker" 
+									data-date-autoclose="true" data-date-orientation="bottom" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+									data-date-today-highlight="true" data-date-today-Btn="true"/>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-xs-12">
+								<label class="control-label" for="observacao">Observação</label>
+								<textarea rows="3" id="observacao" class="form-control"></textarea>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-sm-4">
+								<label class="control-label" for="valor">Valor</label>
+								<div class="input-group">
+									<div class="input-group-addon">R$</div>
+									<input type="text" name="valor" id="valor" 
+										class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="reset" class="btn btn-danger">Limpar</button>
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</html>
