@@ -10,9 +10,10 @@
 
 <section layout:fragment="conteudo">
 
-<div layout:insert="MensagemGeral"></div>
-
 <div class="container">
+
+	<div layout:insert="MensagemGeral"></div>
+	
 	<!-- Inserindo Breadcrumb desta pagina -->
 	<ol class="breadcrumb">
 		<li><a href="">Inicio</a></li>
@@ -35,7 +36,7 @@
    				<div class="form-group">
    					<div class="col-sm-4">
    						<div class="input-group">
-   							<input class="form-control" placeholder="Qual descrição está procurando?" 
+   							<input class="form-control" placeholder="Qual nome da ação que está procurando?" 
    								autofocus="autofocus" ></input>
    							<span class="input-group-btn">
    								<button type="submit" class="btn btn-default">
@@ -52,19 +53,24 @@
 					<thead>
 						<tr>
 							<th class="text-center col-md-1">ID</th>
-							<th>Nome Ação</th>
-							<th class="text-center col-md-2">Data de Vencimento</th>
-							<th class="text-right col-md-2">Valor</th>
-							<th class="text-center col-md-2">Status</th>
+							<th class="text-center col-md-2">Nome Ação</th>
+							<th class="text-center col-md-2">Data Compra/Venda</th>
+							<th class="text-center col-md-1">Tipo V/C</th>
+							<th class="text-right col-md-2">Valor Unit.</th>
+							<th class="text-right col-md-1">Quantidade</th>
+							<th class="text-center col-md-2">Total</th>
 							<th class="text-center col-md-1">Opções</th>
 						</tr>    			
 	    			</thead>
 	    			<tbody>
 	    				<tr th:each="lancamento : ${listaLancamentos}">
 	    					<td class="text-center" th:text="${lancamento.id}"></td>
-	    					<td th:text="${lancamento.nomeAcao}"></td>
+	    					<td class="text-center" th:text="${lancamento.nomeAcao}"></td>
 	    					<td class="text-center" th:text="${{lancamento.dataCompraVenda}}"></td>
+	    					<td class="text-center" th:text="${{lancamento.tipo_vc}}"></td>
 	    					<td class="text-right" th:text="|R$ ${{lancamento.vlrUnit}}|"></td>
+	    					<td class="text-right" th:text="${{lancamento.qtdade}}"></td>
+	    					<td class="text-center" th:text="${{lancamento.totLcto}}"></td>
 	    					<td class="text-center">
 	    						<a class="btn btn-link btn-xs" rel="tooltip" data-placement="top" title="Editar"
 	    							th:href="@{/lancamentos/{id}(id=${lancamento.id})}">

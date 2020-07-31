@@ -38,14 +38,15 @@
 				<div class="form-group" th:classappend="${#fields.hasErrors('nomeAcao')} ? has-error">
 					<label for="nomeAcao" class="col-sm-2 control-label">Nome Ação/FII</label>
 					<div class="col-sm-2"> 
-						<input type="text" maxlength="6" class="form-control" id="nomeAcao" th:field="*{nomeAcao}"/>
+						<input type="text" maxlength="6" class="form-control" style="text-transform:uppercase;"
+							id="nomeAcao" th:field="*{nomeAcao}"/>
 					</div>
 				</div>
 				
 				<div class="form-group" th:classappend="${#fields.hasErrors('dataCompraVenda')} ? has-error">
-					<label for="dataCompraVenda" class="col-sm-2 control-label">Data Compra/Venda</label>
+					<label for="dataCompraVenda" class="col-sm-2 control-label">Data</label>
 					<div class="col-sm-2">  
-						<input autocomplete="off" type="text" class="form-control"	id="dataCompraVenda" data-provide="datepicker" 
+						<input autocomplete="off" type="text" class="form-control" id="dataCompraVenda" data-provide="datepicker" 
 						data-date-autoclose="true" data-date-orientation="bottom" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
 						data-date-today-highlight="true" data-date-today-Btn="true" th:field="*{dataCompraVenda}"/>
 					</div>
@@ -65,19 +66,19 @@
 					<label for="tipo_vc" class="col-sm-2 control-label">Tipo V/C</label>
 					<div class="col-sm-2">
 						<select class="form-control" name="tipo_vc">
-							<option disabled="disabled" selected>Selecione...</option>
-							<option value="Venda" th:field="*{tipo_vc}">Venda</option>
 							<option value="Compra" th:field="*{tipo_vc}">Compra</option>
+							<option value="Venda" th:field="*{tipo_vc}">Venda</option>
 	                   	</select>
 	                   </div>
 				</div>
 				
 				<div class="form-group" th:classappend="${#fields.hasErrors('vlrUnit')} ? has-error">
 					<label for="vlrUnit" class="col-sm-2 control-label">Valor Unitário</label>
-					<div class="col-sm-2">   
+					<div class="col-sm-3">   
 						<div class="input-group">
 							<div class="input-group-addon">R$</div>
-							<input type="text" class="form-control js-currency" id="vlrUnit" th:field="*{vlrUnit}"/>
+							<input size="9" maxlength="9"onkeyup="calcularTotLcto()" type="text"
+								class="form-control js-currency"	id="vlrUnit" th:field="*{vlrUnit}"/>
 						</div>
 					</div>
 				</div>
@@ -85,33 +86,36 @@
 				<div class="form-group" th:classappend="${#fields.hasErrors('qtdade')} ? has-error">
 					<label for="qtdade" class="col-sm-2 control-label">Quantidade</label>
 					<div class="col-sm-2">   
-						<input type="number" min="1" class="form-control" id="qtdade" th:field="*{qtdade}"/>
+						<input size="9" maxlength="9" min="1,0" onkeyup="calcularTotLcto()" type="text"
+							class="form-control js-currency" id="qtdade" th:field="*{qtdade}"/>
 					</div>
 				</div>
 				
 				<div class="form-group" th:classappend="${#fields.hasErrors('vlrDesp')} ? has-error">
 					<label for="vlrDesp" class="col-sm-2 control-label">Valor Despesa</label>
-					<div class="col-sm-2">   
+					<div class="col-sm-3">   
 						<div class="input-group">
 							<div class="input-group-addon">R$</div>
-							<input type="text" class="form-control js-currency" id="vlrDesp" th:field="*{vlrDesp}"/>
+							<input size="9" maxlength="9" onkeyup="calcularTotLcto()" type="text"
+								class="form-control js-currency" id="vlrDesp" th:field="*{vlrDesp}"/>
 						</div>
 					</div>
 				</div>
 				
 				<div class="form-group" th:classappend="${#fields.hasErrors('totLcto')} ? has-error">
 					<label for="totLcto" class="col-sm-2 control-label">Valor Total</label>
-					<div class="col-sm-2">   
+					<div class="col-sm-3">    
 						<div class="input-group">
 							<div class="input-group-addon">R$</div>
-							<input disabled="disabled" type="text" class="form-control js-currency" id="totLcto" th:field="*{totLcto}"/>
+							<input size="13" maxlength="13" type="text" class="form-control js-currency"
+								id="totLcto" th:field="*{totLcto}"/>
 						</div>
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-primary">Salvar</button>
+						<button onclick="validacion()" type="submit" class="btn btn-primary">Salvar</button>
 					</div>
 				</div>
 			</div>

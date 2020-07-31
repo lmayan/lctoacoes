@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -31,17 +32,17 @@ public class Lancamento {
 	private String usuario;
 
 	@NotBlank(message = "O campo NOME AÇÃO/FII é obrigatório.")
-	@Size(min = 5, max = 6, message = "O campo Nome da Ação não pode conter menos de 6 caracteres")
+	@Size(min = 5, max = 6, message = "O campo Nome da Ação não pode conter menos de 5 caracteres")
 	private String nomeAcao;
 
 	@NotNull(message = "O campo DATA é obrigatório.")
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataCompraVenda;
 
 	@NotNull(message = "O campo QUANTIDADE é obrigatório.")
 	@DecimalMin(message = "VALOR minimo é de 1", value = "1")
-	private int qtdade;
+	private int qtdade = 1;
 
 	@NotBlank(message = "O campo TIPO VENDA/COMPRA é obrigatório.")
 	@Size(min = 4, max = 10, message = "O campo Tipo Venda/Compra não pode conter menos de 4 ou mais de 10 caracteres")
@@ -52,13 +53,16 @@ public class Lancamento {
 
 	@NotNull(message = "O campo VALOR UNITARIO é obrigatório.")
 	@DecimalMin(message = "VALOR minimo é de 0,01", value = "0.01")
+	@DecimalMax(message = "VALOR maximo é de 99.999,99", value = "9999999")
 	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal vlrUnit;
 
 	@NumberFormat(pattern = "#,##0.00")
+	@DecimalMax(message = "VALOR maximo é de 99.999,99", value = "9999999")
 	private BigDecimal vlrDesp;
 
 	@NumberFormat(pattern = "#,##0.00")
+	@DecimalMax(message = "VALOR maximo é de 999.999,99", value = "99999999")
 	private BigDecimal totLcto;
 
 	public long getId() {
@@ -82,7 +86,7 @@ public class Lancamento {
 	}
 
 	public void setNomeAcao(String nomeAcao) {
-		this.nomeAcao = nomeAcao;
+		this.nomeAcao = nomeAcao.toUpperCase();
 	}
 
 	public Date getDataCompraVenda() {

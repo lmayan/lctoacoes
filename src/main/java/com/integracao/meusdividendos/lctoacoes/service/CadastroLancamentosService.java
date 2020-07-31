@@ -24,19 +24,13 @@ public class CadastroLancamentosService {
 		}
 	}
 	
+	public void deletar(Long id) {
+		lctos.deleteById(id);
+	}
+	
 	public List<Lancamento> buscarTodos(){
 		List<Lancamento> lst = lctos.findAll();
 		return lst;
-	}
-	
-	public boolean validar(Lancamento lancamento) {
-		boolean validado = false;
-		if(lancamento.getDataCompraVenda().equals(null) || lancamento.getNomeAcao().equals(null)
-				|| lancamento.getNomeAcao().isEmpty() ) {
-		} else {
-			validado = true;
-		}
-		return validado;
 	}
 	
 }
