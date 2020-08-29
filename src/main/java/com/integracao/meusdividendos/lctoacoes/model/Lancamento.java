@@ -59,7 +59,7 @@ public class Lancamento {
 
 	@NumberFormat(pattern = "#,##0.00")
 	@DecimalMax(message = "VALOR maximo é de 99.999,99", value = "9999999")
-	private BigDecimal vlrDesp;
+	private BigDecimal vlrDesp = new BigDecimal(0);
 
 	@NumberFormat(pattern = "#,##0.00")
 	@DecimalMax(message = "VALOR maximo é de 999.999,99", value = "99999999")

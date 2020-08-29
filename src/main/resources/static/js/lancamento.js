@@ -1,7 +1,5 @@
 // Inicializa o MODAL de Inclusao de Lancamento
-$('#novoLancamento').on('show.bs.modal', function(event){
-	
-});
+$('#novoLancamento').on('show.bs.modal', function(event){});
 
 
 // Inicializa o MODAL de confirmacao de Exclusao
@@ -37,8 +35,12 @@ $(function () {
 	//Inicializa comp. 'tooltip' Bootstrap possuem a tag 'rel="tooltip"'
 	$('[rel="tooltip"]').tooltip(); 
 	
-	//Inicializa as mascaras do 'maskMoney'
-	$('.js-currency').maskMoney({thousands:'.', decimal:',', affixesStay: false, allowZero:false});
+	//Inicializa as mascaras do 'jQuery.mask'
+	$('.js-currency').mask('000.000.000,00', {reverse: true});
+	$('.js-currency-qtdade').mask('0000000');
+	$('.js-currency-date').mask("00/00/0000", {placeholder: "__/__/____"});
+	
+	
 
 	//Executa funcao qdo clicar sobre componente que possua class="js-atualizar-status" 
 	$('.js-atualizar-status').on('click', function(event){ 
@@ -88,14 +90,6 @@ $(function () {
 
 function validacion() {
 	
-	//*****	Converter campo quantidade
-	m1 = $("#qtdade").maskMoney('unmasked')[0];
-	//alert("M1 Antes: "+m1);
-	$("#qtdade").val(parseInt(m1));
-	//alert("M1 Depois: "+m1);
-
-	
-	
 	//*****	CONDICOES VALIDACOES FRONT
 	/* if () {
 	  alert('[ERROR] '+);
@@ -104,32 +98,65 @@ function validacion() {
 } 
 
 function calcularTotLcto(){
-	
+
 	//***** Efetuando calculo valor Total no FRONT
-    var 	m1 = document.getElementById('qtdade').value.toString().replace(',','.'),
-    	m2 = document.getElementById('vlrUnit').value.toString().replace(',','.'),
-    	m3 = document.getElementById('vlrDesp').value.toString().replace(',','.');
+    var 	m1 = document.getElementById('qtdade').value,
+    		m2 = document.getElementById('vlrUnit').value,
+    		m2Orig = document.getElementById('vlrUnit').value,
+    		m3 = document.getElementById('vlrDesp').value,
+    		m3Orig = document.getElementById('vlrDesp').value;
+    		//alert('M1: '+m1+' M2: '+m2+' M3: '+m3+' M4: '+m4)
+    
     	
 	//***** Se campo Quantidade >=(maior) que 1 execute
-	//***** Se campo VlrUnit >=(maior) que 8 execute
+	//***** Se campo VlrUnit >=(tamanho maior) que 8 execute
 	if(m1>=1){
-		//alert('M1: '+m1+' M2: '+m2+' M3: '+m3+' M4: '+m4)
-		if(m2.length>=8){
-			alert("M2 Antes: "+m2)
-			m2 = document.getElementById('vlrUnit').value.toString().replace('.','')
-			alert("M2 Depois: "+m2)
-			$("#vlrUnit").val(m2);
+		
+		// Se o campo de vlrUnit receber tres ou mais caracteres (0,00) TRATA 
+		if(m2.length>=3){
+			//alert("M2 Antes: "+m2)
+			m2 = document.getElementById('vlrUnit').value.toString().replace(',','.')
+			//alert("M2 Depois: "+m2+ " TEMP: ")
 		}
-		//alert('M1: '+m1+' M2: '+m2+' M3: '+m3)
+		
+		// Se o campo de vlrDesp receber tres ou mais caracteres (0,00) TRATA 
+		if(m3.length>=3){
+			m3 = document.getElementById('vlrDesp').value.toString().replace(',','.')
+		}
+		
+		// Se o campo de vlrUnit receber oito ou mais caracteres (0.000,00) TRATA
+		if(m2.length>=8){
+			//alert("(LENGTH:8) M2 Antes: "+m2)
+			m2 = document.getElementById('vlrUnit').value.toString().replace('.','')
+			document.getElementById('temp').value = m2
+			m2 = document.getElementById('temp').value.toString().replace(',','.')
+			//alert("M2 Depois: "+m2)
+		}
+		
+		// Se o campo de vlrDesp receber oito ou mais caracteres (0.000,00) TRATA
+		if(m3.length>=8){
+			//alert("(LENGTH:8) M3 Antes: "+m3)
+			m3 = document.getElementById('vlrDesp').value.toString().replace('.','')
+			document.getElementById('temp').value = m3
+			m3 = document.getElementById('temp').value.toString().replace(',','.')
+			//alert("M3 Depois: "+m3)
+		}
+		
 		var m4 = (m1 * m2 - m3);
 	}
-
-	//***** Reescrevendo valor no campo TotLcto para exibir valor correto (maskMoney)
+	
+	//***** Reescrevendo valor no campo vlrUnit para exibir valor correto
+	$("#vlrUnit").val(m2Orig);
+	
+	//***** Reescrevendo valor no campo vlrUnit para exibir valor correto
+	$("#vlrDesp").val(m3Orig);
+	
+	//***** Reescrevendo valor no campo TotLcto para exibir valor correto
 	$("#totLcto").val(m4);
 	temp = document.getElementById('totLcto').value.toString().replace('.',',');
-	//alert("TOT CORRIGIDO: "+temp)
+	//alert("M4: "+m4 + "/ TOT CORRIGIDO: "+temp)
 	$("#totLcto").val(temp);
-	//$("#totLcto").maskMoney('mask', temp);
+	
 }
 
 

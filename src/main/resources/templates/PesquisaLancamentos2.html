@@ -5,7 +5,7 @@
 	layout:decorator="LayoutPadrao">
 	
 <head>
-	<title>Pesquisa de Lançamentos</title>
+	<title>Pesquisa de Lançamentos MODAL</title>
 </head>
 
 <section layout:fragment="conteudo">
@@ -63,7 +63,7 @@
 						</tr>    			
 	    			</thead>
 	    			<tbody>
-	    				<tr th:each="lancamento : ${listaLancamentos}">
+	    				<tr th:each="lancamento : ${listaLancamentosModal}">
 	    					<td class="text-center" th:text="${lancamento.id}"></td>
 	    					<td class="text-center" th:text="${lancamento.nomeAcao}"></td>
 	    					<td class="text-center" th:text="${{lancamento.dataCompraVenda}}"></td>
@@ -84,7 +84,7 @@
 	    					</td>
 	    				</tr>
 	    				<tr>
-	    					<td colspan="6" th:if="${#lists.isEmpty(listaLancamentos)}">Nenhum lançamento encontrado!</td>
+	    					<td colspan="6" th:if="${#lists.isEmpty(listaLancamentosModal)}">Nenhum lançamento encontrado!</td>
 	    				</tr>
 	    			</tbody>
 				</table>
@@ -93,7 +93,8 @@
 			<!-- Inserindo Paginacao no RODAPE -->
 			<footer>
 				<div class="col-sm-3">
-					<a class="btn btn-link" th:href="@{/lancamentos/novo}">Novo Lançamento (Pagina)</a>
+					<button class="btn btn-primary" data-toggle="modal" 
+						data-target="#NovoLancamento">Novo Lançamento (Modal)</button>
 				</div>
 				<div class="col-sm-6 paginacao text-right">
 					<ul class="pagination">
@@ -106,13 +107,10 @@
 						<li><a href=""><span>>></span></a></li>
 					</ul>
 				</div>
-				<div class="col-sm-3">
-					<a class="btn btn-link text-right" style="color: #a94442"
-						th:href="@{/lancamentos/gerarCSV}">Gerar Arquivo CSV</a>
-				</div>
 			</footer>
    		</div>
    		<div layout:insert="DialogoConfirmacaoExclusao"></div>
+   		<div layout:insert="DialogoNovoLancamento"></div>
    	</div>
 	</div>
 </section>

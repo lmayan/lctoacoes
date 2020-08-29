@@ -11,67 +11,115 @@
 					<button type="button" data-dismiss="modal" class="close">
 						<span>&times;</span>
 					</button>
-					<h4>Novo Lançamento</h4>
+					<h3><b>Novo Lançamento</b></h3>
 				</div>
-				<form>
-					<!-- Inserindo entrada de dados da OS -->
-					<div class="modal-body">
-						<div class="row">
-							<div class="text-center col-sm-6 alert alert-success">
-								<button type="button" class="close" data-dismiss="alert">
-									<span>&times;</span></button>
-								SUCESSO
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-sm-5">
-								<label class="control-label" for="cliente">Usuário</label>
-								<select id="cliente" class="form-control">
-									<option value="" >Selecione...</option>
-									<option value="Carol">Carol</option>
-									<option value="Lucas">Lucas</option>
-									<option value="Mateus">Mateus</option>
-								</select>
-							</div>
-							<div class="form-group col-sm-7">
-								<label for="dataVencimento" class="col-sm-2 control-label">Data de vencimento</label>
-								<div class="col-sm-2">  
-									<input autocomplete="off" type="text" class="form-control"	id="dataVencimento" data-provide="datepicker" 
-									data-date-autoclose="true" data-date-orientation="bottom" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
-									data-date-today-highlight="true" data-date-today-Btn="true"/>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-sm-6">
-								<label for="dataVencimento" class="control-label">Data de vencimento</label>
-									<input autocomplete="off" type="text" class="form-control"	id="dataVencimento" data-provide="datepicker" 
-									data-date-autoclose="true" data-date-orientation="bottom" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
-									data-date-today-highlight="true" data-date-today-Btn="true"/>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-xs-12">
-								<label class="control-label" for="observacao">Observação</label>
-								<textarea rows="3" id="observacao" class="form-control"></textarea>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-sm-4">
-								<label class="control-label" for="valor">Valor</label>
-								<div class="input-group">
-									<div class="input-group-addon">R$</div>
-									<input type="text" name="valor" id="valor" 
-										class="form-control">
-								</div>
-							</div>
-						</div>
+				
+				
+	<form id="modalLancamento" class="form-horizontal" method="post" th:action="@{/lancamentos/salvarModal}" th:object="${lancamento}">
+
+		<div layout:insert="MensagemErro"></div>
+
+  		<div class="modal-body">
+  			
+  			<input type="hidden" id="id" th:field="*{id}"/>
+  			<input type="hidden" id="temp"/>
+  			
+	  			<div class="form-group">
+					<label class="col-sm-2 control-label" for="cliente">Usuário</label>
+					<div class="col-sm-4">
+						<select id="cliente" class="form-control">
+							<option value="">Selecione...</option>
+							<option value="Carol" th:field="*{usuario}">Carol</option>
+							<option value="Lucas" th:field="*{usuario}">Lucas</option>
+							<option value="Mateus" th:field="*{usuario}">Mateus</option>
+					</select>
 					</div>
-					<div class="modal-footer">
-						<button type="reset" class="btn btn-danger">Limpar</button>
-						<button type="submit" class="btn btn-primary">Salvar</button>
+				</div>
+  			
+			<div class="form-group" th:classappend="${#fields.hasErrors('nomeAcao')} ? has-error">
+				<label for="nomeAcao" class="col-sm-2 control-label">Nome Ação/FII</label>
+				<div class="col-sm-3"> 
+					<input type="text" maxlength="6" class="form-control" style="text-transform:uppercase;"
+						id="nomeAcao" th:field="*{nomeAcao}"/>
+				</div>
+				<div th:classappend="${#fields.hasErrors('dataCompraVenda')} ? has-error">
+					<label for="dataCompraVenda" class="col-sm-2 control-label">Data</label>
+					<div class="col-sm-3">  
+						<input min="12" autocomplete="off" type="text" class="form-control js-currency-date" id="dataCompraVenda" data-provide="datepicker" 
+						data-date-autoclose="true" data-date-orientation="bottom" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+						data-date-today-highlight="true" data-date-today-Btn="true" th:field="*{dataCompraVenda}"/>
 					</div>
-				</form>
+				</div>
+			</div>
+			
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('tipo_acfi')} ? has-error">
+				<label for="tipo_acfi" class="col-sm-2 control-label">Tipo Ação/FII</label>
+				<div class="col-sm-3">
+					<select class="form-control" name="tipo_acfi">
+						<option th:each="tipo_acfi : ${tipos_acfi}" th:value="${tipo_acfi}"
+						th:text="${tipo_acfi.descricao}" th:field="*{tipo_acfi}"></option>
+                 	</select>
+                 </div>
+				<div th:classappend="${#fields.hasErrors('tipo_vc')} ? has-error">
+					<label for="tipo_vc" class="col-sm-2 control-label">Tipo V/C</label>
+					<div class="col-sm-3">
+						<select class="form-control" name="tipo_vc">
+							<option value="Compra" th:field="*{tipo_vc}">Compra</option>
+							<option value="Venda" th:field="*{tipo_vc}">Venda</option>
+	                 	</select>
+	                 </div>
+				</div>
+			</div>
+			
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('vlrUnit')} ? has-error">
+				<label for="vlrUnit" class="col-sm-2 control-label">Valor Unitário</label>
+				<div class="col-sm-4">   
+					<div class="input-group">
+						<div class="input-group-addon">R$</div>
+						<input onkeyup="calcularTotLcto()" min="3" autocomplete="off" size="9" type="text"
+							class="form-control js-currency" id="vlrUnit" th:field="*{vlrUnit}"/>
+					</div>
+				</div>
+				<div th:classappend="${#fields.hasErrors('qtdade')} ? has-error">
+					<label for="qtdade" class="col-sm-2 control-label">Quantidade</label>
+					<div class="col-sm-3">   
+						<input onchange="calcularTotLcto()" autocomplete="off" size="9" maxlength="6" min="1" type="number"
+							class="form-control js-currency-qtdade" id="qtdade" th:field="*{qtdade}"/>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('vlrDesp')} ? has-error">
+				<label for="vlrDesp" class="col-sm-2 control-label">Valor Despesa</label>
+				<div class="col-sm-4">   
+					<div class="input-group">
+						<div class="input-group-addon">R$</div>
+						<input onkeyup="calcularTotLcto()" autocomplete="off" size="9" maxlength="9" type="text"
+							class="form-control js-currency" id="vlrDesp" th:field="*{vlrDesp}"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('totLcto')} ? has-error">
+				<label for="totLcto" class="col-sm-2 control-label">Valor Total</label>
+				<div class="col-sm-4">    
+					<div class="input-group">
+						<div class="input-group-addon">R$</div>
+						<input readonly="readonly" size="13" maxlength="13" type="text" class="form-control js-currency"
+							id="totLcto" th:field="*{totLcto}"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="modal-footer">
+					<button type="reset" class="btn btn-danger">Limpar</button>
+				<button type="submit" class="btn btn-primary">Salvar</button>
+			</div>
+		</div>
+   </form>
 			</div>
 		</div>
 	</div>

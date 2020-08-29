@@ -34,6 +34,7 @@
 	   		<div class="panel-body">
 	   			
 	   			<input type="hidden" id="id" th:field="*{id}"/>
+	   			<input type="hidden" id="temp"/>
 	   			
 				<div class="form-group" th:classappend="${#fields.hasErrors('nomeAcao')} ? has-error">
 					<label for="nomeAcao" class="col-sm-2 control-label">Nome Ação/FII</label>
@@ -46,7 +47,7 @@
 				<div class="form-group" th:classappend="${#fields.hasErrors('dataCompraVenda')} ? has-error">
 					<label for="dataCompraVenda" class="col-sm-2 control-label">Data</label>
 					<div class="col-sm-2">  
-						<input autocomplete="off" type="text" class="form-control" id="dataCompraVenda" data-provide="datepicker" 
+						<input min="12" autocomplete="off" type="text" class="form-control js-currency-date" id="dataCompraVenda" data-provide="datepicker" 
 						data-date-autoclose="true" data-date-orientation="bottom" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
 						data-date-today-highlight="true" data-date-today-Btn="true" th:field="*{dataCompraVenda}"/>
 					</div>
@@ -77,8 +78,8 @@
 					<div class="col-sm-3">   
 						<div class="input-group">
 							<div class="input-group-addon">R$</div>
-							<input size="9" maxlength="9"onkeyup="calcularTotLcto()" type="text"
-								class="form-control js-currency"	id="vlrUnit" th:field="*{vlrUnit}"/>
+							<input onkeyup="calcularTotLcto()" min="3" autocomplete="off" size="9" type="text"
+								class="form-control js-currency" id="vlrUnit" th:field="*{vlrUnit}"/>
 						</div>
 					</div>
 				</div>
@@ -86,8 +87,8 @@
 				<div class="form-group" th:classappend="${#fields.hasErrors('qtdade')} ? has-error">
 					<label for="qtdade" class="col-sm-2 control-label">Quantidade</label>
 					<div class="col-sm-2">   
-						<input size="9" maxlength="9" min="1,0" onkeyup="calcularTotLcto()" type="text"
-							class="form-control js-currency" id="qtdade" th:field="*{qtdade}"/>
+						<input onchange="calcularTotLcto()" autocomplete="off" size="9" maxlength="6" min="1" type="number"
+							class="form-control js-currency-qtdade" id="qtdade" th:field="*{qtdade}"/>
 					</div>
 				</div>
 				
@@ -96,7 +97,7 @@
 					<div class="col-sm-3">   
 						<div class="input-group">
 							<div class="input-group-addon">R$</div>
-							<input size="9" maxlength="9" onkeyup="calcularTotLcto()" type="text"
+							<input onkeyup="calcularTotLcto()" autocomplete="off" size="9" maxlength="9" type="text"
 								class="form-control js-currency" id="vlrDesp" th:field="*{vlrDesp}"/>
 						</div>
 					</div>
@@ -107,7 +108,7 @@
 					<div class="col-sm-3">    
 						<div class="input-group">
 							<div class="input-group-addon">R$</div>
-							<input size="13" maxlength="13" type="text" class="form-control js-currency"
+							<input readonly="readonly" size="13" maxlength="13" type="text" class="form-control js-currency"
 								id="totLcto" th:field="*{totLcto}"/>
 						</div>
 					</div>
